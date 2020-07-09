@@ -1,0 +1,8 @@
+IF EXISTS(SELECT 1
+              FROM {0}
+              WHERE {1})
+  BEGIN
+    DELETE FROM {0}
+    WHERE {1}
+    SET @L_CONTADOR = @L_CONTADOR + 1;
+END
