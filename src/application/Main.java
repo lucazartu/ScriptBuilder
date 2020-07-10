@@ -14,7 +14,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("MainScriptBuilder.fxml"));
 			Scene scene = new Scene(root);
-			Image image = new Image("file:images\\database.png");
+			Image image = new Image("file:images/database.png");
 			primaryStage.getIcons().add(image);
 			primaryStage.setTitle("Gerador de Scripts");
 			primaryStage.setScene(scene);

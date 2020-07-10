@@ -32,25 +32,6 @@ public class ArquivosHelper {
 		return conteudo;
 	}
 
-	public static StringBuilder lerArquivoEmTexto(String nomeArquivo) {
-		File arquivo = new File(nomeArquivo);
-		StringBuilder conteudo = new StringBuilder();
-
-		try {
-			InputStream is = new FileInputStream(arquivo);
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			for (String linha : br.lines().collect(Collectors.toList())) {
-				conteudo.append(linha + "\n");
-			}
-
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return conteudo;
-	}
-
 	private static boolean criarArquivo(File arquivo) {
 			
 			boolean criado = false;

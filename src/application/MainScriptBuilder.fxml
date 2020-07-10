@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
@@ -29,15 +28,16 @@
    <children>
       <HBox prefHeight="42.0" prefWidth="427.0">
          <children>
-            <Label minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" text="Selecione a base de dados:">
+            <Label minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" text="Nome da Base de Dados:">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="drpDwnBaseDados" prefHeight="28.0" prefWidth="207.0">
+            <TextField fx:id="txtBaseDados" prefHeight="26.0" prefWidth="207.0">
                <HBox.margin>
                   <Insets left="15.0" />
-               </HBox.margin></ComboBox>
+               </HBox.margin>
+            </TextField>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -52,7 +52,7 @@
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
          <children>
-            <Label prefHeight="18.0" prefWidth="429.0" text="Digite os identificadores unicos (separados por virgula):" />
+            <Label prefHeight="18.0" prefWidth="429.0" text="Colunas Ignoradas na Checagem:" />
             <TextArea fx:id="txtIdentificadoresUnicos" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
@@ -63,7 +63,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" selected="true" text="INSERT/UPDATE">
+            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" selected="true" text="INSERT">
                <toggleGroup>
                   <ToggleGroup fx:id="tglGrpTipoScript" />
                </toggleGroup>
