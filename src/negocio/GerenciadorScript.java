@@ -1,7 +1,7 @@
 package negocio;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import helpers.ArquivosHelper;
@@ -18,14 +18,15 @@ public class GerenciadorScript {
 	 * @param colunasIgnoradas
 	 * @param tipoScript
 	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException 
 	 */
-	public static void gerarScript(String baseDeDados, String nomeTabela, String colunasIgnoradas, String tipoScript)
-			throws FileNotFoundException {
-		List<String> arquivoScript = ArquivosHelper.lerArquivoEmLista("script.csv");
+	public static void gerarScript(String baseDeDados, String nomeTabela, String colunasIgnoradas, String tipoScript,
+			String arquivoDeScript, String diretorioDeSaida) throws FileNotFoundException, UnsupportedEncodingException {
+		List<String> arquivoScript = ArquivosHelper.lerArquivoEmLista(arquivoDeScript);
 		ScriptBuilder builder = new ScriptBuilder();
 
-		builder.paraBaseDeDados(baseDeDados).
-		paraTabela(nomeTabela)
+		builder.paraBaseDeDados(baseDeDados)
+		.paraTabela(nomeTabela)
 		.doTipo(tipoScript)
 		.comColunas(arquivoScript)
 		.comOsRegistros(arquivoScript)
@@ -34,8 +35,6 @@ public class GerenciadorScript {
 
 		Script script = builder.criarScript();
 
-		ArquivosHelper.criarEscreverArquivo("script.sql", script.toString());
-
-		System.out.println("Arquivo CSV Não encontrado.");
+		ArquivosHelper.criarEscreverArquivo(diretorioDeSaida+"\\script.sql", script.toString());
 	}
 }

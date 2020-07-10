@@ -21,14 +21,16 @@
    <rowConstraints>
       <RowConstraints maxHeight="235.59998168945313" minHeight="10.0" prefHeight="36.79998779296875" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="235.59998168945313" minHeight="10.0" prefHeight="36.79998779296875" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="198.00000000000003" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="44.59999389648439" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="33.00002441406252" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="44.59999389648439" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <HBox prefHeight="42.0" prefWidth="427.0">
          <children>
-            <Label minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" text="Nome da Base de Dados:">
+            <Label minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" text="Nome da base de dados:">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -50,15 +52,15 @@
             </TextField>
          </children>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+      <VBox prefHeight="128.0" prefWidth="427.0" GridPane.rowIndex="2">
          <children>
-            <Label prefHeight="18.0" prefWidth="429.0" text="Colunas Ignoradas na Checagem:" />
-            <TextArea fx:id="txtIdentificadoresUnicos" prefHeight="200.0" prefWidth="200.0" />
+            <Label prefHeight="18.0" prefWidth="429.0" text="Colunas Ignoradas na checagem:" />
+            <TextArea fx:id="txtColunasIgnoradas" prefWidth="427.0" />
          </children>
       </VBox>
-      <HBox prefHeight="29.0" prefWidth="412.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <HBox prefHeight="29.0" prefWidth="412.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <children>
-            <Label prefHeight="38.0" prefWidth="120.0" text="Tipo de Script:">
+            <Label prefHeight="38.0" prefWidth="120.0" text="Tipo de script:">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
@@ -74,12 +76,52 @@
             <Insets top="5.0" />
          </GridPane.margin>
       </HBox>
-      <AnchorPane GridPane.rowIndex="4">
+      <AnchorPane GridPane.rowIndex="6">
          <children>
             <Button layoutX="326.0" layoutY="8.0" mnemonicParsing="false" onAction="#gerarScript" text="Gerar Script" />
             <Button fx:id="btnRecarregar" layoutY="8.0" mnemonicParsing="false" onAction="#regarregar" text="Recarregar" />
          </children>
       </AnchorPane>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+         <children>
+            <Label prefHeight="30.0" prefWidth="145.0" text="Arquivo de script:" />
+            <TextField fx:id="txtCaminhoArquivoScript" prefWidth="190.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#procurarArquivoScript" text="Procurar">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <children>
+            <Label prefHeight="30.0" prefWidth="145.0" text="Diretorio de saída:">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtDiretorioSaida" prefWidth="190.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#selecionarDiretorioSaida" text="Procurar">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

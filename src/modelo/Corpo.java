@@ -42,20 +42,30 @@ public class Corpo {
 	private String constuirClausulaWhere(String registro, List<String> colunasIgnoradas) {
 		StringBuilder clausulaWhere = new StringBuilder("WHERE");
 		List<String> listaValoresRegistro = Arrays.asList(registro.split(";"));
-		
-		for (int i = 0; i< this.colunas.size(); i++) {
-			if(colunasIgnoradas.contains(colunas.get(i))){
+
+		for (int i = 0; i < this.colunas.size(); i++) {
+			if (colunasIgnoradas.contains(colunas.get(i))) {
 				continue;
 			}
-			
-			if(i>0) {
-				clausulaWhere.append(" AND");
+
+			if (i > 0) {
+				clausulaWhere.append(" AND ");
 			}
-			
-			clausulaWhere.append(" " + colunas.get(i) + " = " + tratarValorColuna(listaValoresRegistro.get(i)));
+
+			clausulaWhere.append(colunas.get(i) + obterOperadorPorValor(listaValoresRegistro.get(i)) + tratarValorColuna(listaValoresRegistro.get(i)));
 		}
-		
+
 		return clausulaWhere.toString();
+	}
+	
+	/**
+	 * Método responsável por retornar o tipo de operador
+	 * dependendo do valor da coluna
+	 * @param valor
+	 * @return String contendo operador de comparação
+	 */
+	private String obterOperadorPorValor(String valor) {
+		return "null".equalsIgnoreCase(valor) ? " IS " : " = ";
 	}
 
 	/**
@@ -160,7 +170,7 @@ public class Corpo {
 			
 			corpo.append(Constantes.TAB + Constantes.TAB + "SET @L_CONTADOR = @L_CONTADOR + 1;" + Constantes.QUEBRA_DE_LINHA);
 			corpo.append(Constantes.TAB + "END");
-			corpo.append(Constantes.QUEBRA_DE_LINHA + Constantes.QUEBRA_DE_LINHA);
+			corpo.append(Constantes.QUEBRA_DE_LINHA);
 		}
 		
 		return corpo.toString();

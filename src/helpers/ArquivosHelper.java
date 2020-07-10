@@ -8,19 +8,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.input.BOMInputStream;
+
 public class ArquivosHelper {
-	public static List<String> lerArquivoEmLista(String nomeArquivo) throws FileNotFoundException {
+	public static List<String> lerArquivoEmLista(String nomeArquivo) throws FileNotFoundException, UnsupportedEncodingException {
 		File arquivo = new File(nomeArquivo);
 		List<String> conteudo = new ArrayList<>();
 
 		InputStream is = new FileInputStream(arquivo);
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new BOMInputStream(is)));
 
 		for (String linha : br.lines().collect(Collectors.toList())) {
+			if(linha.startsWith("?")) {
+				linha = linha.substring(1);
+			}
 			conteudo.add(linha);
 		}
 

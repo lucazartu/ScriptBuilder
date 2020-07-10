@@ -23,6 +23,6 @@ public class Cabecalho {
 				+ "SELECT GETDATE(), DB_NAME(), USER_NAME(), SUSER_NAME(), @@SERVERNAME" + Constantes.QUEBRA_DE_LINHA 
 				+ "GO" + Constantes.QUEBRA_DE_LINHA 
 				+ "" + Constantes.QUEBRA_DE_LINHA 
-				+ "declare @L_CONTADOR int = 0";
+				+ "declare @L_CONTADOR int = 0" + Constantes.QUEBRA_DE_LINHA;
 	}
 }
