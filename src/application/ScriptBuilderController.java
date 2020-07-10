@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,8 +38,7 @@ public class ScriptBuilderController implements Initializable {
 	@FXML
 	/**
 	 * Método responsável por resetar todos os campos do software e recarregar todas
-	 * as informações.
-	 * Atrelado ao botão "Recarregar".
+	 * as informações. Atrelado ao botão "Recarregar".
 	 * 
 	 * @param event
 	 */
@@ -52,8 +52,7 @@ public class ScriptBuilderController implements Initializable {
 	@FXML
 	/**
 	 * Método responsável por gerar o script baseado nos parametros de entrada do
-	 * programa.
-	 * Atrelado ao botão "Gerar Script"
+	 * programa. Atrelado ao botão "Gerar Script"
 	 * 
 	 * @param event
 	 */
@@ -78,6 +77,10 @@ public class ScriptBuilderController implements Initializable {
 
 		try {
 			GerenciadorScript.gerarScript(baseDeDados, nomeTabela, identificadores, tipoScript);
+		} catch (FileNotFoundException e) {
+			alertaValidacao.setTitle("Arquivo CSV");
+			alertaValidacao.setContentText("Arquivo CSV não encontrado.");
+			alertaValidacao.show();
 		} catch (Exception e) {
 			alertaValidacao.setAlertType(AlertType.ERROR);
 			alertaValidacao.setTitle("ERRO Não Tratado");

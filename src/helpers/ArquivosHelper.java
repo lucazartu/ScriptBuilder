@@ -3,6 +3,7 @@ package helpers;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,18 +13,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArquivosHelper {
-	public static List<String> lerArquivoEmLista(String nomeArquivo) {
+	public static List<String> lerArquivoEmLista(String nomeArquivo) throws FileNotFoundException {
 		File arquivo = new File(nomeArquivo);
 		List<String> conteudo = new ArrayList<>();
 
+		InputStream is = new FileInputStream(arquivo);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+		for (String linha : br.lines().collect(Collectors.toList())) {
+			conteudo.add(linha);
+		}
+
 		try {
-			InputStream is = new FileInputStream(arquivo);
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-			for (String linha : br.lines().collect(Collectors.toList())) {
-				conteudo.add(linha);
-			}
-
 			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
