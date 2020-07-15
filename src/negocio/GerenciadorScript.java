@@ -15,12 +15,13 @@ public class GerenciadorScript {
 	 * 
 	 * @param baseDeDados
 	 * @param nomeTabela
-	 * @param colunasIgnoradas
+	 * @param utilizaIdentity 
+	 * @param chavePrimaria
 	 * @param tipoScript
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static void gerarScript(String baseDeDados, String nomeTabela, String colunasIgnoradas, String tipoScript,
+	public static void gerarScript(String baseDeDados, String nomeTabela, boolean utilizaIdentity, String chavePrimaria, String tipoScript,
 			String arquivoDeScript, String diretorioDeSaida) throws FileNotFoundException, UnsupportedEncodingException {
 		List<String> arquivoScript = ArquivosHelper.lerArquivoEmLista(arquivoDeScript);
 		ScriptBuilder builder = new ScriptBuilder();
@@ -30,8 +31,8 @@ public class GerenciadorScript {
 		.doTipo(tipoScript)
 		.comColunas(arquivoScript)
 		.comOsRegistros(arquivoScript)
-		.IgnorandoAsColunas(colunasIgnoradas)
-		.eQuantidade(arquivoScript.size() - 1);
+		.utilizandoIdentity(utilizaIdentity)
+		.comChavePrimaria(chavePrimaria);
 
 		Script script = builder.criarScript();
 

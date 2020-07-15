@@ -2,30 +2,31 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
-<GridPane minHeight="220.0" minWidth="433.0" prefHeight="371.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ScriptBuilderController">
+<GridPane maxHeight="420.0" minHeight="420.0" minWidth="433.0" prefHeight="420.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ScriptBuilderController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="235.59998168945313" minHeight="10.0" prefHeight="36.79998779296875" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="235.59998168945313" minHeight="10.0" prefHeight="36.79998779296875" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="0.0" prefHeight="33.00002441406252" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="44.59999389648439" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <HBox prefHeight="42.0" prefWidth="427.0">
@@ -52,37 +53,31 @@
             </TextField>
          </children>
       </HBox>
-      <VBox prefHeight="128.0" prefWidth="427.0" GridPane.rowIndex="2">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
          <children>
-            <Label prefHeight="18.0" prefWidth="429.0" text="Colunas Ignoradas na checagem:" />
-            <TextArea fx:id="txtColunasIgnoradas" prefWidth="427.0" />
-         </children>
-      </VBox>
-      <HBox prefHeight="29.0" prefWidth="412.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-         <children>
-            <Label prefHeight="38.0" prefWidth="120.0" text="Tipo de script:">
+            <Label minWidth="200.0" prefWidth="200.0" text="Tabela possui identity?" />
+            <CheckBox fx:id="chkbxIdentity" mnemonicParsing="false" selected="true">
                <HBox.margin>
-                  <Insets right="10.0" />
+                  <Insets left="15.0" />
                </HBox.margin>
-            </Label>
-            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" selected="true" text="INSERT">
-               <toggleGroup>
-                  <ToggleGroup fx:id="tglGrpTipoScript" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="98.0" text="DELETE" toggleGroup="$tglGrpTipoScript" />
+            </CheckBox>
          </children>
-         <GridPane.margin>
-            <Insets top="5.0" />
-         </GridPane.margin>
       </HBox>
-      <AnchorPane GridPane.rowIndex="6">
-         <children>
-            <Button layoutX="326.0" layoutY="8.0" mnemonicParsing="false" onAction="#gerarScript" text="Gerar Script" />
-            <Button fx:id="btnRecarregar" layoutY="8.0" mnemonicParsing="false" onAction="#regarregar" text="Recarregar" />
-         </children>
-      </AnchorPane>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+         <children>
+            <Label minHeight="30.0" minWidth="200.0" prefHeight="30.0" prefWidth="200.0" text="Chave Primária:">
+               <tooltip>
+                  <Tooltip text="Especificar a chave primária (caso seja necessário), separada por vírgula." />
+               </tooltip>
+            </Label>
+            <TextField fx:id="txtChavePrimaria" prefHeight="26.0" prefWidth="207.0">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
          <children>
             <Label prefHeight="30.0" prefWidth="145.0" text="Arquivo de script:" />
             <TextField fx:id="txtCaminhoArquivoScript" prefWidth="190.0">
@@ -100,7 +95,7 @@
             <Insets top="5.0" />
          </GridPane.margin>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <children>
             <Label prefHeight="30.0" prefWidth="145.0" text="Diretorio de saída:">
                <padding>
@@ -122,6 +117,30 @@
             <Insets top="5.0" />
          </GridPane.margin>
       </HBox>
+      <HBox prefHeight="29.0" prefWidth="412.0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+         <children>
+            <Label prefHeight="38.0" prefWidth="120.0" text="Tipo de script:">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" selected="true" text="INSERT">
+               <toggleGroup>
+                  <ToggleGroup fx:id="tglGrpTipoScript" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" prefHeight="38.0" prefWidth="98.0" text="DELETE" toggleGroup="$tglGrpTipoScript" />
+         </children>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+      </HBox>
+      <AnchorPane GridPane.rowIndex="7">
+         <children>
+            <Button layoutX="326.0" layoutY="8.0" mnemonicParsing="false" onAction="#gerarScript" text="Gerar Script" />
+            <Button fx:id="btnRecarregar" layoutY="8.0" mnemonicParsing="false" onAction="#regarregar" text="Recarregar" />
+         </children>
+      </AnchorPane>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

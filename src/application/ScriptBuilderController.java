@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import exceptions.BaseNaoInformadaException;
+import exceptions.ChavePrimariaObrigatoriaException;
 import exceptions.NomeTabelaNaoInformadaException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.DirectoryChooser;
@@ -29,7 +31,10 @@ public class ScriptBuilderController implements Initializable {
 	private TextField txtNomeTabela;
 
 	@FXML
-	private TextArea txtColunasIgnoradas;
+	private CheckBox chkbxIdentity;
+
+	@FXML
+	private TextField txtChavePrimaria;
 
 	@FXML
 	private TextField txtCaminhoArquivoScript;
@@ -54,26 +59,29 @@ public class ScriptBuilderController implements Initializable {
 	public void regarregar(ActionEvent event) {
 		this.txtBaseDados.deleteText(0, txtBaseDados.getLength());
 		this.txtNomeTabela.deleteText(0, this.txtNomeTabela.getLength());
-		this.txtColunasIgnoradas.deleteText(0, txtColunasIgnoradas.getLength());
+		this.txtChavePrimaria.deleteText(0, txtChavePrimaria.getLength());
 		this.tglGrpTipoScript.getToggles().get(0).setSelected(true);
 	}
-	
+
 	/**
-	 * Método responsável por selecionar o arquivo CSV contendo os valores do script.
+	 * Método responsável por selecionar o arquivo CSV contendo os valores do
+	 * script.
+	 * 
 	 * @param event
 	 */
 	public void procurarArquivoScript(ActionEvent event) {
 		FileChooser fc = new FileChooser();
 		File arquivo = fc.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-		
-		if(arquivo != null) {			
+
+		if (arquivo != null) {
 			this.txtCaminhoArquivoScript.setText(arquivo.getAbsolutePath());
 		}
-		
+
 	}
-	
+
 	/**
 	 * Método responsável por selecionar o diretório de saída.
+	 * 
 	 * @param event
 	 */
 	public void selecionarDiretorioSaida(ActionEvent event) {
@@ -96,13 +104,16 @@ public class ScriptBuilderController implements Initializable {
 		Alert alertaValidacao = new Alert(AlertType.WARNING);
 		String baseDeDados = this.txtBaseDados.getText();
 		String nomeTabela = this.txtNomeTabela.getText();
-		String colunasIgnoradas = this.txtColunasIgnoradas.getText().replaceAll("\\s", "").toUpperCase();
+		boolean utilizaIdentity = this.chkbxIdentity.isSelected();
+		String chavePrimaria = this.txtChavePrimaria.getText().replaceAll("\\s", "").toUpperCase();
 		String tipoScript = ((RadioButton) this.tglGrpTipoScript.getSelectedToggle()).getText();
 		String caminhoArquivo = this.txtCaminhoArquivoScript.getText();
 		String diretorioSaida = this.txtDiretorioSaida.getText();
 
 		try {
-			ValidadorParametros.validarParametros(baseDeDados, nomeTabela);
+			ValidadorParametros.validarParametros(baseDeDados, nomeTabela, chavePrimaria, utilizaIdentity);
+			GerenciadorScript.gerarScript(baseDeDados, nomeTabela, utilizaIdentity, chavePrimaria, tipoScript, caminhoArquivo,
+					diretorioSaida);
 		} catch (BaseNaoInformadaException e) {
 			alertaValidacao.setTitle("Base de Dados");
 			alertaValidacao.setContentText(e.getMessage());
@@ -111,11 +122,10 @@ public class ScriptBuilderController implements Initializable {
 			alertaValidacao.setTitle("Nome da Tabela");
 			alertaValidacao.setContentText(e.getMessage());
 			alertaValidacao.show();
-		}
-
-		try {
-			GerenciadorScript.gerarScript(baseDeDados, nomeTabela, colunasIgnoradas, tipoScript, caminhoArquivo,
-					diretorioSaida);
+		} catch (ChavePrimariaObrigatoriaException e) {
+			alertaValidacao.setTitle("Chave primária");
+			alertaValidacao.setContentText(e.getMessage());
+			alertaValidacao.show();
 		} catch (FileNotFoundException e) {
 			alertaValidacao.setTitle("Arquivo CSV");
 			alertaValidacao.setContentText("Arquivo CSV não encontrado.");
@@ -126,6 +136,7 @@ public class ScriptBuilderController implements Initializable {
 			alertaValidacao.setContentText("Erro não identificado, favor, verifique os parametros e o arquivo CSV");
 			alertaValidacao.show();
 		}
+
 	}
 
 }
