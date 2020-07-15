@@ -102,8 +102,8 @@ public class ScriptBuilderController implements Initializable {
 	 */
 	public void gerarScript(ActionEvent event) {
 		Alert alertaValidacao = new Alert(AlertType.WARNING);
-		String baseDeDados = this.txtBaseDados.getText();
-		String nomeTabela = this.txtNomeTabela.getText();
+		String baseDeDados = this.txtBaseDados.getText().toUpperCase();
+		String nomeTabela = this.txtNomeTabela.getText().toUpperCase();
 		boolean utilizaIdentity = this.chkbxIdentity.isSelected();
 		String chavePrimaria = this.txtChavePrimaria.getText().replaceAll("\\s", "").toUpperCase();
 		String tipoScript = ((RadioButton) this.tglGrpTipoScript.getSelectedToggle()).getText();

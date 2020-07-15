@@ -40,7 +40,7 @@ public class Corpo {
 	 * @param chavePrimaria
 	 * @return String contendo a clausula WHERE.
 	 */
-	private String constuirClausulaWhere(List<String> registro, List<String> chavePrimaria) {
+	private String constuirClausulaWhere(List<String> registro) {
 		StringBuilder clausulaWhere = new StringBuilder("WHERE" + " ");
 
 		for (int i = 0; i < this.colunas.size(); i++) {
@@ -71,12 +71,12 @@ public class Corpo {
 	 * @return String contendo a clausula.
 	 */
 	private String construirChecagemDeRegistro(String clausulaWhere, boolean negar) {
-		String checagemDeRegistro = "IF";
+		StringBuilder checagemDeRegistro = new StringBuilder("IF");
 
-		checagemDeRegistro = checagemDeRegistro + (negar ? " NOT EXISTS" : " EXISTS ");
-		checagemDeRegistro = checagemDeRegistro + "(SELECT 1 FROM " + this.nomeTabela + " " + clausulaWhere + ")";
+		checagemDeRegistro.append(negar ? " NOT EXISTS " : " EXISTS ");
+		checagemDeRegistro.append("(SELECT 1 FROM " + this.nomeTabela + " " + clausulaWhere + ")");
 
-		return checagemDeRegistro;
+		return checagemDeRegistro.toString();
 	}
 
 	/**
@@ -113,7 +113,10 @@ public class Corpo {
 		return insert.toString();
 	}
 
-	private void tratarInsertComIdentity() {
+	/**
+	 * Método responsável por tratar colunas e registros quando o script utilizar identity.
+	 */
+	private void tratarUtilizacaoIdentity() {
 		if (this.tipo == TipoScriptEnum.INSERT && this.utilizaIdentity) {
 			chavePrimaria.forEach(chave -> {
 				int indiceChavePrimaria = this.colunas.indexOf(chave);
@@ -137,7 +140,12 @@ public class Corpo {
 		
 		return delete.toString();
 	}
-	
+
+	/**
+	 * Método responsável por tratar os valores das colunas, caso haja NULL ou alguma função do SQL.
+	 * @param valor
+	 * @return
+	 */
 	private String tratarValorColuna(String valor) {
 		String valorTratado = "";
 
@@ -156,10 +164,10 @@ public class Corpo {
 	public String toString() {
 		StringBuilder corpo = new StringBuilder();
 		
-		this.tratarInsertComIdentity();
+		this.tratarUtilizacaoIdentity();
 		
 		for (List<String> registro : this.registros) {
-			String clausulaWhere = this.constuirClausulaWhere(registro, this.chavePrimaria);
+			String clausulaWhere = this.constuirClausulaWhere(registro);
 			String checagemDeRegistro = this.construirChecagemDeRegistro(clausulaWhere, this.tipo == TipoScriptEnum.INSERT ? true : false);
 			
 			corpo.append(checagemDeRegistro + Constantes.QUEBRA_DE_LINHA
