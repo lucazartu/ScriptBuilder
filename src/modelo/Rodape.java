@@ -15,9 +15,6 @@ public class Rodape {
 				+ "COMMIT TRAN" + Constantes.QUEBRA_DE_LINHA
 				+ "ELSE" + Constantes.QUEBRA_DE_LINHA
 				+ "ROLLBACK TRAN" + Constantes.QUEBRA_DE_LINHA
-				+ "GO" + Constantes.QUEBRA_DE_LINHA
-				+ "ROLLBACK TRAN" + Constantes.QUEBRA_DE_LINHA 
-				+ "SELECT @L_CONTADOR as 'Registros Afetados'" + Constantes.QUEBRA_DE_LINHA 
-				+ "GO" + Constantes.QUEBRA_DE_LINHA;
+				+ "SELECT @L_CONTADOR as 'Registros Afetados'" + Constantes.QUEBRA_DE_LINHA;
 	}
 }
